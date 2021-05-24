@@ -1,6 +1,6 @@
 package com.example.otss.controller;
 
-import com.example.otss.entity.User;
+import com.example.otss.entity.Users;
 import com.example.otss.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.web.bind.annotation.*;
@@ -18,20 +18,20 @@ public class UserController {
     }
 
     @GetMapping(value = "getAll")
-    @JsonView(User.UserInfo.class)
-    public List<User> getAll() {
+    @JsonView(Users.UsersInfo.class)
+    public List<Users> getAll() {
         return userService.findAll();
     }
 
     @PostMapping(value = "createUser")
-    public String createUser(@RequestBody User user) {
+    public String createUser(@RequestBody Users user) {
         userService.createUser(user);
         return "success";
     }
 
     @GetMapping(value = "findUserById/{id}")
-    @JsonView(User.UserInfo.class)
-    public User findUserById(@PathVariable Integer id) {
+    @JsonView(Users.UsersInfo.class)
+    public Users findUserById(@PathVariable Integer id) {
         return userService.findUserById(id);
 
     }

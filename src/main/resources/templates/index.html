@@ -93,6 +93,7 @@
                             <th>id</th>
                             <th>用户名</th>
                             <th>性别</th>
+                            <th>年龄</th>
                             <th>手机号</th>
                             <th>邮箱</th>
                             <th>操作</th>
@@ -203,24 +204,19 @@
                         $.each(response, function (i, r) {
                             dataRow += '<tr>'
                                 + '<td>'
-                                + r.id
+                                + r.userId
                                 + '</td>'
                                 + '<td>'
-                                + r.username
+                                + r.name
                                 + '</td>'
-                                + '<td>';
-
-                            if (r.sex === 0) {
-                                dataRow += '未知';
-                            } else if (r.sex === 1) {
-                                dataRow += '男';
-                            } else if (r.sex === 2) {
-                                dataRow += '女';
-                            }
-
-                            dataRow += '</td>'
                                 + '<td>'
-                                + r.phone
+                                + r.sex
+                                + '</td>'
+                                + '<td>'
+                                + r.age
+                                + '</td>'
+                                + '<td>'
+                                + r.tel
                                 + '</td><td>'
                                 + r.email + '</td>'
                             ;

@@ -1,10 +1,10 @@
 package com.example.otss.dao;
 
-import com.example.otss.entity.User;
+import com.example.otss.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserDao  extends JpaRepository<User,Integer> {
+public interface UserDao  extends JpaRepository<Users,Long> {
 
-    User findUserById(int id);
+    Users findUserByUserId(long id);
 
 }

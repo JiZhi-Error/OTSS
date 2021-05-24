@@ -1,17 +1,17 @@
 package com.example.otss.service;
 
-import com.example.otss.entity.User;
+import com.example.otss.entity.Users;
 
 import java.util.List;
 
 public interface UserService {
 
-    void createUser(User user);
+    void createUser(Users user);
 
-    List<User> findAll();
+    List<Users> findAll();
 
-    void deleteUserById(int id);
+    void deleteUserById(long id);
 
-    User findUserById(int id);
+    Users findUserById(int id);
 
 }
