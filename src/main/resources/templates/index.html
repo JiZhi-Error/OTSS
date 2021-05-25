@@ -67,6 +67,9 @@
     </style>
 </head>
 <body>
+<script src="./js/echarts.min.js"></script>
+<div id="mainPieChart" style="width:600px;height:600px"></div>
+<div id="mainLineChart" style="width:600px;height:600px"></div>
 <div class="container">
     <input hidden="hidden" id="ctx" th:value="${#request.getContextPath()}" type="text">
     <div class="search">
@@ -169,6 +172,89 @@
 <script type="text/javascript">
     var ctx = $("#ctx").val();
     $(function () {
+
+        var mainPieChart = echarts.init(document.querySelector('#mainPieChart'));
+        $.ajax({
+            url: ctx + "/api/user/getAllAgePie",
+            type: "get",
+            dataType: "json",
+            success: function (response) {
+                console.log("ERROR: ", response);
+                var option = {
+                    //设置
+                    title: {
+                        text: '用户年龄',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    // //对图例组件的不同系列进行标记说明
+                    // legend:{
+                    //     orient:'vertical',  //设置图例列表的布局朝向
+                    //     left:'left',
+                    //     data:['A(90以上)','B(80-89)','C1(70-79)','C2(60-69)','D(0-59)']
+                    // },
+                    //系列列表
+                    series: [
+                        //系列1
+                        {
+                            name: '用户年龄',
+                            type: 'pie',    //数据统计图的类型
+                            //放置要展示的数据
+                            // data:[
+                            //     {value:3,name:'A(90以上)'},
+                            //     {value:11,name:'B(80-89)'},
+                            //     {value:25,name:'C1(70-79)'},
+                            //     {value:23,name:'C2(60-69)'},
+                            //     {value:8,name:'D(0-59)'}
+                            // ]
+                            data: response
+                        }
+                    ]
+                }
+                mainPieChart.setOption(option);
+            }
+        });
+
+        var mainLineChart = echarts.init(document.querySelector('#mainLineChart'));
+        $.ajax({
+            url: ctx + "/api/user/getAllAgeLine",
+            type: "get",
+            dataType: "json",
+            success: function (response) {
+                console.log("ERROR:13213123 ", response);
+                var option = {
+                    //设置
+                    title: {
+                        text: '用户年龄',
+                        x: 'center'
+                    },
+                    //x轴
+                    xAxis: {
+                        data:[20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+                    },
+                    //y轴没有显式设置，根据值自动生成y轴
+                    yAxis: {},
+                    //系列列表
+                    series: [
+                        //系列1
+                        {
+                            name: '用户年龄',
+                            type: 'line',    //数据统计图的类型
+                            areaStyle: {
+                                normal: {}
+                            },
+                            data: response
+                        }
+                    ]
+                }
+                mainLineChart.setOption(option);
+            }
+        });
+
+
         // 查询第一页数据
         getPage(1);
         // 新增
@@ -188,6 +274,8 @@
                 $("#search").trigger("click");
             }
         });
+
+
     });
 
     // 获取指定页码的数据
